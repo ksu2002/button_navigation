@@ -1,13 +1,12 @@
 package net.intervyaz.viewintro
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import net.intervyaz.viewintro.databinding.TicketItemBinding
 
 class TicketsAdapter(
-    context: Context,
+    context: FragmentFirst,
     var tickets: List<Ticket>
 ) : RecyclerView.Adapter<TicketsAdapter.TicketsBinder>() {
     override fun getItemCount(): Int {

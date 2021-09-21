@@ -1,0 +1,23 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <SwitchPreferenceCompat
+        android:id="@+id/switch_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:key="sync"
+        app:title="Сменить тему" />
+    <SwitchPreferenceCompat
+        android:id="@+id/switch_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:key="sync"
+        app:title="@string/sync_title" />
+    <SwitchPreferenceCompat
+        android:id="@+id/switch_3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:key="sync"
+        app:title="@string/sync_title" />
+
+</PreferenceScreen>

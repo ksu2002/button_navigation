@@ -7,32 +7,40 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import net.intervyaz.viewintro.databinding.ActivityMainBinding
 import net.intervyaz.viewintro.databinding.FragmentSettingsBinding
 
-class MainActivity : AppCompatActivity() {
+import androidx.annotation.NonNull
+import androidx.fragment.app.FragmentManager
 
-    private lateinit var binding: ActivityMainBinding
+
+class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        val view = binding.root
-        setContentView(view)
-        val adapter = TicketsAdapter(this, fakeTickets)
-        binding.recycler.adapter = adapter
-        binding.recycler.layoutManager = LinearLayoutManager(this)
+        setContentView(R.layout.activity_main)
         val bottomNavigation: BottomNavigationView = findViewById(R.id.bottom_navigation)
-        bottomNavigation.selectedItemId = R.id.fragment_second
-        bottomNavigation.setOnNavigationItemReselectedListener { item ->
-            when(item.itemId) {
+        val fragment_home = FragmentFirst()
+        val fragment_settings = SettingsFragment()
+        supportFragmentManager.beginTransaction()
+            .add(R.id.fragment_container_view, fragment_settings, "fragment_settings")
+            .hide(fragment_settings).commit()
+        supportFragmentManager.beginTransaction()
+            .add(R.id.fragment_container_view, fragment_home, "fragment_home").commit()
+        var active = fragment_home
+        bottomNavigation.setOnItemSelectedListener { item ->
+            when (item.itemId) {
                 R.id.item_1 -> {
-                    // Respond to navigation item 1 reselection
+                    supportFragmentManager.beginTransaction().hide(active)
+                        .show(fragment_home).commit();
+                  active = fragment_home;
+                    true
                 }
                 R.id.item_2 -> {
-                    supportFragmentManager.beginTransaction().replace(R.id.fragment_container_view, FragmentSecond()).commit()
-                    val fragment = FragmentSecond()
-                    val transaction = supportFragmentManager?.beginTransaction()
-                    transaction?.replace(R.id.fragment_container_view, fragment)
-                    transaction?.commit()
+                    supportFragmentManager.beginTransaction().hide(active)
+                        .show(fragment_settings).commit();
+                   active = fragment_home;
+                    true
                 }
+
+                else -> false
             }
         }
     }
